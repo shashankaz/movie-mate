@@ -37,6 +37,16 @@ Config lives in `server/.env` (see `.env.example`) and `client/.env.local` (`NEX
 
 Supported links: anything `react-player` can play — YouTube, Vimeo, direct `.mp4`/`.webm`, HLS `.m3u8`, and more.
 
+## Camera & mic
+
+Participants can share their camera and/or microphone with the room and mute either at any time.
+
+- Peer-to-peer WebRTC mesh; the server only relays signaling (`rtc:signal`) between members of the same room and broadcasts each person's `media:state` (audio/video on or off).
+- The client hook `use-media-call.ts` uses the "perfect negotiation" pattern, so turning a camera or mic on/off renegotiates safely in both directions.
+- "Mute" stops the track and removes it from every peer connection, so the camera light goes off and no media leaves the browser.
+- Uses public Google STUN servers. For users behind strict NATs you'll need a TURN server — add it to `ICE_SERVERS` in `use-media-call.ts`.
+- `getUserMedia` requires HTTPS (or `localhost`).
+
 ## Server layout
 
 ```

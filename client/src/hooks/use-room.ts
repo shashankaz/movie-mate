@@ -2,7 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createSocket, type AppSocket } from "@/lib/socket";
-import type { Ack, ChatMessage, Participant, PlaybackSnapshot } from "@/lib/types";
+import type {
+  Ack,
+  ChatMessage,
+  MediaState,
+  Participant,
+  PlaybackSnapshot,
+  RtcSignalData,
+} from "@/lib/types";
 
 export type RoomStatus = "connecting" | "joined" | "error";
 
@@ -10,6 +17,7 @@ export interface RoomState {
   status: RoomStatus;
   connected: boolean;
   error: string | null;
+  socket: AppSocket | null;
   selfId: string | null;
   roomName: string;
   hostId: string | null;
@@ -23,6 +31,7 @@ const initialState: RoomState = {
   status: "connecting",
   connected: false,
   error: null,
+  socket: null,
   selfId: null,
   roomName: "",
   hostId: null,
@@ -55,6 +64,7 @@ export const useRoom = (roomId: string, name: string, hostKey: string | null) =>
           status: "joined",
           connected: true,
           error: null,
+          socket,
           selfId,
           roomName: room.name,
           hostId: room.hostId,
@@ -93,6 +103,14 @@ export const useRoom = (roomId: string, name: string, hostKey: string | null) =>
     socket.on("chat:message", (m) =>
       setState((s) => ({ ...s, messages: [...s.messages, m].slice(-MAX_MESSAGES) })),
     );
+    socket.on("media:state", ({ id, audio, video }) =>
+      setState((s) => ({
+        ...s,
+        participants: s.participants.map((p) =>
+          p.id === id ? { ...p, media: { audio, video } } : p,
+        ),
+      })),
+    );
 
     socket.connect();
 
@@ -126,6 +144,16 @@ export const useRoom = (roomId: string, name: string, hostKey: string | null) =>
     },
     sendMessage: (text: string) =>
       withAck((s) => s.timeout(5000).emitWithAck("chat:send", { text })),
+    signal: (to: string, data: RtcSignalData) => {
+      socketRef.current?.emit("rtc:signal", { to, data });
+    },
+    setMediaState: (media: MediaState) => {
+      socketRef.current?.emit("media:state", media);
+      setState((s) => ({
+        ...s,
+        participants: s.participants.map((p) => (p.id === s.selfId ? { ...p, media } : p)),
+      }));
+    },
   };
 
   const isHost = state.selfId !== null && state.selfId === state.hostId;

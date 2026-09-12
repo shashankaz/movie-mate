@@ -2,7 +2,9 @@ import type { Server, Socket } from "socket.io";
 import {
   chatSendSchema,
   joinRoomSchema,
+  mediaStateSchema,
   playbackSchema,
+  rtcSignalSchema,
   setVideoSchema,
 } from "../schemas/index.js";
 import { roomService } from "../services/room.service.js";
@@ -127,6 +129,26 @@ export const registerRoomHandlers = (io: IO, socket: AppSocket): void => {
       const message = roomService.addMessage(roomId, socket.id, text);
       io.to(roomId).emit("chat:message", message);
       ack?.({ ok: true });
+    }),
+  );
+
+  socket.on(
+    "rtc:signal",
+    guard((payload) => {
+      const roomId = roomOf();
+      const { to, data } = parse(rtcSignalSchema, payload);
+      if (to === socket.id || !roomService.isMember(roomId, to)) return;
+      io.to(to).emit("rtc:signal", { from: socket.id, data });
+    }),
+  );
+
+  socket.on(
+    "media:state",
+    guard((payload) => {
+      const roomId = roomOf();
+      const media = parse(mediaStateSchema, payload);
+      roomService.setMediaState(roomId, socket.id, media);
+      socket.to(roomId).emit("media:state", { id: socket.id, ...media });
     }),
   );
 

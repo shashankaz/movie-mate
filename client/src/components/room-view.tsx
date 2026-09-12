@@ -4,9 +4,11 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Film } from "lucide-react";
 import { Chat } from "@/components/chat";
+import { MediaPanel } from "@/components/media-panel";
 import { Participants } from "@/components/participants";
 import { RoomHeader } from "@/components/room-header";
 import { VideoUrlForm } from "@/components/video-url-form";
+import { useMediaCall } from "@/hooks/use-media-call";
 import { useRoom } from "@/hooks/use-room";
 
 const VideoPlayer = dynamic(() => import("@/components/video-player"), { ssr: false });
@@ -19,6 +21,13 @@ interface Props {
 
 export function RoomView({ roomId, name, hostKey }: Props) {
   const room = useRoom(roomId, name, hostKey);
+  const call = useMediaCall({
+    socket: room.socket,
+    selfId: room.selfId,
+    participants: room.participants,
+    onSignal: room.actions.signal,
+    onStateChange: room.actions.setMediaState,
+  });
 
   if (room.status === "error") {
     return (
@@ -87,11 +96,23 @@ export function RoomView({ roomId, name, hostKey }: Props) {
           )}
         </section>
 
-        <aside className="flex h-112 flex-col overflow-hidden rounded-2xl border border-blue-200 bg-white lg:h-auto lg:w-80 lg:shrink-0">
+        <aside className="flex h-160 flex-col overflow-hidden rounded-2xl border border-blue-200 bg-white lg:h-auto lg:w-80 lg:shrink-0">
           <Participants
             participants={room.participants}
             hostId={room.hostId}
             selfId={room.selfId}
+          />
+          <MediaPanel
+            selfId={room.selfId}
+            selfName={name}
+            participants={room.participants}
+            localStream={call.localStream}
+            remoteStreams={call.remoteStreams}
+            state={call.state}
+            busy={call.busy}
+            error={call.error}
+            onToggle={call.toggle}
+            onStop={call.stopAll}
           />
           <Chat
             messages={room.messages}

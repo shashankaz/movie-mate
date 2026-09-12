@@ -1,4 +1,11 @@
-import type { ChatMessage, Participant, PlaybackUpdate, RoomSnapshot } from "../types/index.js";
+import type {
+  ChatMessage,
+  MediaState,
+  Participant,
+  PlaybackUpdate,
+  RoomSnapshot,
+  RtcSignalData,
+} from "../types/index.js";
 
 export interface Ack<T = undefined> {
   ok: boolean;
@@ -17,6 +24,8 @@ export interface ClientToServerEvents {
   "playback:seek": (payload: { currentTime: number }, ack?: (res: Ack) => void) => void;
   "playback:tick": (payload: { currentTime: number }) => void;
   "chat:send": (payload: { text: string }, ack?: (res: Ack) => void) => void;
+  "rtc:signal": (payload: { to: string; data: RtcSignalData }) => void;
+  "media:state": (payload: MediaState) => void;
 }
 
 export interface ServerToClientEvents {
@@ -26,6 +35,8 @@ export interface ServerToClientEvents {
   "video:changed": (payload: { url: string; playback: PlaybackUpdate }) => void;
   "playback:update": (payload: PlaybackUpdate) => void;
   "chat:message": (message: ChatMessage) => void;
+  "rtc:signal": (payload: { from: string; data: RtcSignalData }) => void;
+  "media:state": (payload: { id: string } & MediaState) => void;
 }
 
 export interface SocketData {

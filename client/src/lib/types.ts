@@ -1,7 +1,18 @@
+export interface MediaState {
+  audio: boolean;
+  video: boolean;
+}
+
 export interface Participant {
   id: string;
   name: string;
   joinedAt: number;
+  media: MediaState;
+}
+
+export interface RtcSignalData {
+  description?: RTCSessionDescriptionInit;
+  candidate?: RTCIceCandidateInit | null;
 }
 
 export interface ChatMessage {
@@ -50,6 +61,8 @@ export interface ClientToServerEvents {
   "playback:seek": (payload: { currentTime: number }, ack: (res: Ack) => void) => void;
   "playback:tick": (payload: { currentTime: number }) => void;
   "chat:send": (payload: { text: string }, ack: (res: Ack) => void) => void;
+  "rtc:signal": (payload: { to: string; data: RtcSignalData }) => void;
+  "media:state": (payload: MediaState) => void;
 }
 
 export interface ServerToClientEvents {
@@ -59,6 +72,8 @@ export interface ServerToClientEvents {
   "video:changed": (payload: { url: string; playback: PlaybackUpdate }) => void;
   "playback:update": (payload: PlaybackUpdate) => void;
   "chat:message": (message: ChatMessage) => void;
+  "rtc:signal": (payload: { from: string; data: RtcSignalData }) => void;
+  "media:state": (payload: { id: string } & MediaState) => void;
 }
 
 export const expectedPosition = (pb: PlaybackSnapshot, now = Date.now()): number =>

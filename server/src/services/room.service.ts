@@ -2,6 +2,7 @@ import { env } from "../config/env.js";
 import { roomRepository } from "../models/room.model.js";
 import type {
   ChatMessage,
+  MediaState,
   Participant,
   PlaybackUpdate,
   Room,
@@ -38,7 +39,12 @@ class RoomService {
     const room = this.getRoom(roomId);
     this.cancelCleanup(roomId);
 
-    const participant: Participant = { id: socketId, name, joinedAt: Date.now() };
+    const participant: Participant = {
+      id: socketId,
+      name,
+      joinedAt: Date.now(),
+      media: { audio: false, video: false },
+    };
     room.participants.set(socketId, participant);
 
     let becameHost = false;
@@ -116,6 +122,18 @@ class RoomService {
       senderName: sender.name,
       text,
     });
+  }
+
+  isMember(roomId: string, socketId: string): boolean {
+    return roomRepository.findById(roomId)?.participants.has(socketId) ?? false;
+  }
+
+  setMediaState(roomId: string, socketId: string, media: MediaState): Participant {
+    const room = this.getRoom(roomId);
+    const participant = room.participants.get(socketId);
+    if (!participant) throw AppError.forbidden("You are not in this room");
+    participant.media = media;
+    return participant;
   }
 
   addSystemMessage(room: Room, text: string): ChatMessage {

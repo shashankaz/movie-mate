@@ -1,7 +1,30 @@
+export interface MediaState {
+  audio: boolean;
+  video: boolean;
+}
+
 export interface Participant {
-  id: string; // socket id
+  id: string;
   name: string;
   joinedAt: number;
+  media: MediaState;
+}
+
+export interface RtcSessionDescription {
+  type: "offer" | "answer" | "pranswer" | "rollback";
+  sdp?: string;
+}
+
+export interface RtcIceCandidate {
+  candidate?: string;
+  sdpMid?: string | null;
+  sdpMLineIndex?: number | null;
+  usernameFragment?: string | null;
+}
+
+export interface RtcSignalData {
+  description?: RtcSessionDescription;
+  candidate?: RtcIceCandidate | null;
 }
 
 export interface PlaybackState {
