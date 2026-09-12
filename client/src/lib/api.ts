@@ -1,5 +1,10 @@
 import type { z } from "zod";
-import { createRoomResponseSchema, roomInfoResponseSchema } from "./schemas";
+import {
+  createRoomResponseSchema,
+  presignUploadResponseSchema,
+  roomInfoResponseSchema,
+  uploadConfigResponseSchema,
+} from "./schemas";
 import { SERVER_URL } from "./socket";
 
 interface ApiError {
@@ -33,4 +38,12 @@ export const api = {
 
   getRoom: (roomId: string) =>
     request(`/rooms/${encodeURIComponent(roomId)}`, roomInfoResponseSchema),
+
+  getUploadConfig: () => request("/uploads/config", uploadConfigResponseSchema),
+
+  presignUpload: (body: { filename: string; contentType: string; size: number }) =>
+    request("/uploads/presign", presignUploadResponseSchema, {
+      method: "POST",
+      body: JSON.stringify(body),
+    }),
 };

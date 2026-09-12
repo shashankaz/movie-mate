@@ -66,6 +66,20 @@ export const rtcSignalSchema = z.object({
     }),
 });
 
+export const presignUploadSchema = z.object({
+  filename: z
+    .string({ error: "Filename is required" })
+    .trim()
+    .min(1, "Filename is required")
+    .max(255, "Filename is too long"),
+  contentType: z
+    .string({ error: "Content type is required" })
+    .trim()
+    .regex(/^video\/[\w.+-]+$/, "Only video files can be uploaded"),
+  size: z.number({ error: "File size is required" }).int().positive("File is empty"),
+});
+export type PresignUploadBody = z.infer<typeof presignUploadSchema>;
+
 export const mediaStateSchema = z.object({
   audio: z.boolean(),
   video: z.boolean(),

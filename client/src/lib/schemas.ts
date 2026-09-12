@@ -31,6 +31,19 @@ export const roomInfoResponseSchema = z.object({
   hasVideo: z.boolean(),
 });
 
+export const uploadConfigResponseSchema = z.object({
+  enabled: z.boolean(),
+  maxBytes: z.number(),
+  acceptedTypes: z.array(z.string()),
+});
+
+export const presignUploadResponseSchema = z.object({
+  uploadUrl: z.url(),
+  publicUrl: z.url(),
+  key: z.string(),
+  expiresIn: z.number(),
+});
+
 export type Validated<T> = { ok: true; data: T } | { ok: false; error: string };
 
 export const validate = <T extends z.ZodType>(

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { Link2 } from "lucide-react";
 import { validate, videoUrlSchema } from "@/lib/schemas";
@@ -64,7 +65,21 @@ export function VideoUrlForm({ currentUrl, onSubmit }: Props) {
           {currentUrl ? "Switch" : "Load"}
         </button>
       </div>
-      {error && <p className="text-xs text-red-600">{error}</p>}
+      {error ? (
+        <p className="text-xs text-red-600">{error}</p>
+      ) : (
+        <p className="text-xs text-slate-500">
+          Have a file instead?{" "}
+          <Link
+            href="/upload"
+            target="_blank"
+            className="font-medium text-blue-700 underline-offset-4 hover:underline"
+          >
+            Upload it
+          </Link>{" "}
+          and paste the link here.
+        </p>
+      )}
     </form>
   );
 }

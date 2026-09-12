@@ -102,6 +102,12 @@ export default function Home() {
             About
           </Link>
           <Link
+            href="/upload"
+            className="rounded-lg px-3 py-2 text-sm text-blue-700 transition hover:text-blue-950"
+          >
+            Upload
+          </Link>
+          <Link
             href="/join"
             className="rounded-lg px-3 py-2 text-sm text-blue-700 transition hover:text-blue-950"
           >
