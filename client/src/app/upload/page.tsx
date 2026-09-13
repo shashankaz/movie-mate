@@ -24,13 +24,13 @@ export default function UploadPage() {
         <nav className="flex items-center gap-2">
           <Link
             href="/join"
-            className="rounded-lg px-3 py-2 text-sm text-blue-700 transition hover:text-blue-950"
+            className="rounded-lg px-3 py-2 text-sm text-zinc-400 transition hover:text-white"
           >
             Join a room
           </Link>
           <Link
             href="/create"
-            className="rounded-lg bg-blue-700 px-3.5 py-2 text-sm font-medium text-white transition hover:bg-blue-800"
+            className="rounded-lg bg-violet-600 px-3.5 py-2 text-sm font-medium text-white shadow-lg shadow-violet-600/25 transition hover:bg-violet-500"
           >
             Create a room
           </Link>
@@ -39,8 +39,8 @@ export default function UploadPage() {
 
       <div className="mx-auto w-full max-w-xl flex-1 py-12">
         <div className="mb-6">
-          <h1 className="text-2xl font-semibold tracking-tight text-blue-950">{title}</h1>
-          <p className="mt-1 text-sm text-slate-600">
+          <h1 className="text-2xl font-semibold tracking-tight text-zinc-50">{title}</h1>
+          <p className="mt-1 text-sm text-zinc-400">
             Your file goes straight from this browser to storage — it never passes through our
             server. You&apos;ll get a link to paste into any room.
           </p>

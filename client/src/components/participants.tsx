@@ -9,12 +9,12 @@ interface Props {
 }
 
 const colors = [
-  "bg-blue-200 text-blue-900",
-  "bg-blue-700 text-white",
-  "bg-sky-100 text-sky-900",
-  "bg-amber-100 text-amber-900",
-  "bg-indigo-100 text-indigo-900",
-  "bg-slate-200 text-slate-800",
+  "bg-violet-500/25 text-zinc-200",
+  "bg-violet-600 text-white",
+  "bg-fuchsia-500/25 text-fuchsia-100",
+  "bg-amber-500/15 text-amber-100",
+  "bg-indigo-500/25 text-indigo-100",
+  "bg-pink-500/25 text-pink-100",
 ];
 
 const colorFor = (id: string) => {
@@ -27,8 +27,8 @@ export function Participants({ participants, hostId, selfId }: Props) {
   const sorted = [...participants].sort((a, b) => a.joinedAt - b.joinedAt);
 
   return (
-    <div className="border-b border-blue-100 px-4 py-3">
-      <div className="mb-2 flex items-center justify-between text-xs text-slate-500">
+    <div className="border-b border-zinc-800 px-4 py-3">
+      <div className="mb-2 flex items-center justify-between text-xs text-zinc-500">
         <span className="font-medium tracking-wide uppercase">Watching</span>
         <span>{participants.length}</span>
       </div>
@@ -39,7 +39,7 @@ export function Participants({ participants, hostId, selfId }: Props) {
           return (
             <li
               key={p.id}
-              className="flex items-center gap-2 rounded-full border border-blue-200 bg-white py-1 pr-3 pl-1 text-xs"
+              className="flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/50 py-1 pr-3 pl-1 text-xs"
               title={p.name}
             >
               <span
@@ -47,11 +47,11 @@ export function Participants({ participants, hostId, selfId }: Props) {
               >
                 {initials(p.name)}
               </span>
-              <span className="max-w-36 truncate text-blue-950">
+              <span className="max-w-36 truncate text-zinc-50">
                 {p.name}
-                {isSelf && <span className="text-slate-400"> (you)</span>}
+                {isSelf && <span className="text-zinc-600"> (you)</span>}
               </span>
-              {isHost && <Crown className="h-3.5 w-3.5 text-amber-500" aria-label="Host" />}
+              {isHost && <Crown className="h-3.5 w-3.5 text-amber-400" aria-label="Host" />}
             </li>
           );
         })}

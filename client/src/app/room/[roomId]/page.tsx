@@ -30,7 +30,7 @@ export default function RoomPage() {
 
   if (!hydrated || info.status === "loading") {
     return (
-      <main className="flex flex-1 items-center justify-center text-sm text-slate-500">
+      <main className="flex flex-1 items-center justify-center text-sm text-zinc-500">
         Loading…
       </main>
     );
@@ -39,9 +39,9 @@ export default function RoomPage() {
   if (info.status === "error") {
     return (
       <main className="flex flex-1 flex-col items-center justify-center gap-2 px-4 text-center">
-        <p className="text-lg font-semibold text-blue-950">{info.message}</p>
-        <p className="text-sm text-slate-500">Check the link or ask the host for a new one.</p>
-        <Link href="/" className="mt-2 text-sm text-blue-700 underline-offset-4 hover:underline">
+        <p className="text-lg font-semibold text-zinc-50">{info.message}</p>
+        <p className="text-sm text-zinc-500">Check the link or ask the host for a new one.</p>
+        <Link href="/" className="mt-2 text-sm text-violet-400 underline-offset-4 hover:underline">
           Back to home
         </Link>
       </main>

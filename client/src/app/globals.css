@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #0f172a;
-  color-scheme: light only;
+  --background: #09090b;
+  --foreground: #fafafa;
+  color-scheme: dark only;
 }
 
 @theme inline {
@@ -18,12 +18,18 @@ html {
 }
 
 body {
-  background: var(--background);
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(139, 92, 246, 0.12), transparent 70%),
+    var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
 }
 
+::selection {
+  background: rgb(139 92 246 / 0.35);
+}
+
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgb(59 130 246 / 0.35) transparent;
+  scrollbar-color: rgb(113 113 122 / 0.5) transparent;
 }

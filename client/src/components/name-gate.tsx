@@ -29,18 +29,18 @@ export function NameGate({ roomName, onSubmit }: Props) {
           e.preventDefault();
           submit();
         }}
-        className="w-full max-w-sm space-y-5 rounded-2xl border border-blue-200 bg-blue-50 p-6"
+        className="w-full max-w-sm space-y-5 rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6"
       >
         <div className="flex items-center gap-3">
           <Logo withText={false} />
           <div>
-            <p className="text-xs text-slate-500">You&apos;re joining</p>
-            <h1 className="text-sm font-semibold text-blue-950">{roomName ?? "a room"}</h1>
+            <p className="text-xs text-zinc-500">You&apos;re joining</p>
+            <h1 className="text-sm font-semibold text-zinc-50">{roomName ?? "a room"}</h1>
           </div>
         </div>
 
         <label className="block space-y-1.5">
-          <span className="text-xs font-medium text-blue-800">Your name</span>
+          <span className="text-xs font-medium text-zinc-300">Your name</span>
           <input
             autoFocus
             value={name}
@@ -50,16 +50,16 @@ export function NameGate({ roomName, onSubmit }: Props) {
             }}
             maxLength={32}
             placeholder="e.g. Sam"
-            className="w-full rounded-xl border border-blue-200 bg-white px-3 py-2.5 text-sm text-blue-950 placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none"
+            className="w-full rounded-xl border border-zinc-700 bg-zinc-950 px-3 py-2.5 text-sm text-zinc-50 placeholder:text-zinc-500 focus:border-violet-400 focus:ring-2 focus:ring-violet-500/25 focus:outline-none"
           />
         </label>
 
-        {error && <p className="text-xs text-red-600">{error}</p>}
+        {error && <p className="text-xs text-red-400">{error}</p>}
 
         <button
           type="submit"
           disabled={!name.trim()}
-          className="w-full rounded-xl bg-blue-700 py-2.5 text-sm font-medium text-white transition hover:bg-blue-800 disabled:opacity-40"
+          className="w-full rounded-xl bg-violet-600 py-2.5 text-sm font-medium text-white shadow-lg shadow-violet-600/25 transition hover:bg-violet-500 disabled:opacity-40"
         >
           Join room
         </button>

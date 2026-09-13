@@ -32,8 +32,8 @@ export function RoomView({ roomId, name, hostKey }: Props) {
   if (room.status === "error") {
     return (
       <main className="flex flex-1 flex-col items-center justify-center gap-4 px-4 text-center">
-        <p className="text-lg font-semibold text-blue-950">{room.error}</p>
-        <Link href="/" className="text-sm text-blue-700 underline-offset-4 hover:underline">
+        <p className="text-lg font-semibold text-zinc-50">{room.error}</p>
+        <Link href="/" className="text-sm text-violet-400 underline-offset-4 hover:underline">
           Back to home
         </Link>
       </main>
@@ -43,8 +43,8 @@ export function RoomView({ roomId, name, hostKey }: Props) {
   if (room.status === "connecting") {
     return (
       <main className="flex flex-1 flex-col items-center justify-center gap-2 px-4 text-center">
-        <p className="text-sm text-slate-500">Joining room…</p>
-        {room.error && <p className="text-xs text-amber-700">{room.error}</p>}
+        <p className="text-sm text-zinc-500">Joining room…</p>
+        {room.error && <p className="text-xs text-amber-300">{room.error}</p>}
       </main>
     );
   }
@@ -77,11 +77,11 @@ export function RoomView({ roomId, name, hostKey }: Props) {
               onTick={room.actions.tick}
             />
           ) : (
-            <div className="flex aspect-video w-full flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-blue-300 bg-blue-50 text-center">
-              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-blue-700 ring-1 ring-blue-200">
+            <div className="flex aspect-video w-full flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-zinc-700 bg-zinc-900/60 text-center">
+              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-violet-500/10 text-violet-400 ring-1 ring-violet-500/20">
                 <Film className="h-5 w-5" />
               </span>
-              <p className="text-sm text-blue-900">
+              <p className="text-sm text-zinc-200">
                 {room.isHost
                   ? "Paste a video link above to get started"
                   : "Waiting for the host to pick a video"}
@@ -90,13 +90,13 @@ export function RoomView({ roomId, name, hostKey }: Props) {
           )}
 
           {!room.isHost && (
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-zinc-500">
               Playback is controlled by the host. You&apos;ll stay in sync automatically.
             </p>
           )}
         </section>
 
-        <aside className="flex h-160 flex-col overflow-hidden rounded-2xl border border-blue-200 bg-white lg:h-auto lg:w-80 lg:shrink-0">
+        <aside className="flex h-160 flex-col overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/50 lg:h-auto lg:w-80 lg:shrink-0">
           <Participants
             participants={room.participants}
             hostId={room.hostId}

@@ -105,7 +105,7 @@ export default function VideoPlayer({
   };
 
   return (
-    <div className="flex flex-col overflow-hidden rounded-2xl border border-blue-200 bg-white">
+    <div className="flex flex-col overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/50">
       <div className="relative aspect-video w-full bg-black">
         <ReactPlayer
           ref={playerRef}
@@ -146,9 +146,9 @@ export default function VideoPlayer({
               <button
                 type="button"
                 onClick={handleUnblock}
-                className="flex h-full w-full flex-col items-center justify-center gap-3 bg-blue-950/70 text-white backdrop-blur-sm"
+                className="flex h-full w-full flex-col items-center justify-center gap-3 bg-black/60 text-white backdrop-blur-sm"
               >
-                <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white text-blue-900">
+                <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white text-violet-900">
                   <Play className="ml-1 h-7 w-7" fill="currentColor" />
                 </span>
                 <span className="text-sm font-medium">Click to start watching</span>
@@ -158,18 +158,18 @@ export default function VideoPlayer({
         )}
 
         {!ready && (
-          <div className="pointer-events-none absolute inset-0 flex items-center justify-center text-sm text-blue-200">
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center text-sm text-zinc-300">
             Loading video…
           </div>
         )}
       </div>
 
-      <div className="flex items-center gap-3 border-t border-blue-100 px-3 py-2 text-sm text-blue-900">
+      <div className="flex items-center gap-3 border-t border-zinc-800 px-3 py-2 text-sm text-zinc-200">
         {isHost ? (
           <button
             type="button"
             onClick={togglePlay}
-            className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-700 text-white transition hover:bg-blue-800"
+            className="flex h-8 w-8 items-center justify-center rounded-full bg-violet-600 text-white transition hover:bg-violet-500"
             aria-label={isPlaying ? "Pause" : "Play"}
           >
             {isPlaying ? (
@@ -181,19 +181,19 @@ export default function VideoPlayer({
         ) : (
           <span
             className={`flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ${
-              isPlaying ? "bg-blue-100 text-blue-800" : "bg-slate-100 text-slate-600"
+              isPlaying ? "bg-violet-500/15 text-violet-300" : "bg-zinc-800 text-zinc-400"
             }`}
           >
             <span
-              className={`h-1.5 w-1.5 rounded-full ${isPlaying ? "bg-blue-500" : "bg-slate-400"}`}
+              className={`h-1.5 w-1.5 rounded-full ${isPlaying ? "bg-violet-400" : "bg-zinc-500"}`}
             />
             {isPlaying ? "Playing" : "Paused"}
           </span>
         )}
 
-        <span className="text-slate-500 tabular-nums">
+        <span className="text-zinc-500 tabular-nums">
           {formatTime(currentTime)}
-          <span className="mx-1 text-slate-300">/</span>
+          <span className="mx-1 text-zinc-700">/</span>
           {formatTime(duration)}
         </span>
 
@@ -202,7 +202,7 @@ export default function VideoPlayer({
             <button
               type="button"
               onClick={resync}
-              className="flex items-center gap-1.5 rounded-lg px-2 py-1 text-xs text-blue-700 transition hover:bg-blue-50 hover:text-blue-950"
+              className="flex items-center gap-1.5 rounded-lg px-2 py-1 text-xs text-zinc-400 transition hover:bg-zinc-800 hover:text-white"
               title="Re-sync with the host"
             >
               <RefreshCw className="h-3.5 w-3.5" />
@@ -212,7 +212,7 @@ export default function VideoPlayer({
           <button
             type="button"
             onClick={() => setMuted((m) => !m)}
-            className="rounded-lg p-1.5 text-blue-700 transition hover:bg-blue-50 hover:text-blue-950"
+            className="rounded-lg p-1.5 text-zinc-400 transition hover:bg-zinc-800 hover:text-white"
             aria-label={muted ? "Unmute" : "Mute"}
           >
             {muted || volume === 0 ? (
@@ -231,7 +231,7 @@ export default function VideoPlayer({
               setVolume(Number(e.target.value));
               setMuted(false);
             }}
-            className="h-1 w-20 cursor-pointer accent-blue-700"
+            className="h-1 w-20 cursor-pointer accent-violet-500"
             aria-label="Volume"
           />
         </div>

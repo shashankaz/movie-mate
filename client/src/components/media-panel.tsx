@@ -39,13 +39,13 @@ export function MediaPanel({
   const toggleClass = (on: boolean) =>
     `flex h-9 w-9 items-center justify-center rounded-full transition disabled:opacity-50 ${
       on
-        ? "bg-blue-700 text-white hover:bg-blue-800"
-        : "border border-blue-200 bg-white text-blue-800 hover:bg-blue-50"
+        ? "bg-violet-600 text-white hover:bg-violet-500"
+        : "border border-zinc-700 bg-white/5 text-zinc-300 hover:bg-zinc-800"
     }`;
 
   return (
-    <div className="border-b border-blue-100 px-4 py-3">
-      <div className="mb-2 flex items-center justify-between text-xs text-slate-500">
+    <div className="border-b border-zinc-800 px-4 py-3">
+      <div className="mb-2 flex items-center justify-between text-xs text-zinc-500">
         <span className="font-medium tracking-wide uppercase">Camera &amp; mic</span>
         <span>{liveCount > 0 ? `${liveCount} live` : "Off"}</span>
       </div>
@@ -105,13 +105,13 @@ export function MediaPanel({
           </button>
         )}
         {!selfSharing && (
-          <span className="ml-1 text-xs text-slate-500">
+          <span className="ml-1 text-xs text-zinc-500">
             {busy ? "Starting…" : "Share your camera or mic"}
           </span>
         )}
       </div>
 
-      {error && <p className="mt-2 text-xs text-red-600">{error}</p>}
+      {error && <p className="mt-2 text-xs text-red-400">{error}</p>}
     </div>
   );
 }

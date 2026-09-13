@@ -36,7 +36,7 @@ const copy = {
 } as const;
 
 const inputClass =
-  "w-full rounded-xl border border-blue-200 bg-white px-3 py-2.5 text-sm text-blue-950 placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none";
+  "w-full rounded-xl border border-zinc-700 bg-zinc-950 px-3 py-2.5 text-sm text-zinc-50 placeholder:text-zinc-500 focus:border-violet-400 focus:ring-2 focus:ring-violet-500/25 focus:outline-none";
 
 export function RoomForm({ mode }: Props) {
   const router = useRouter();
@@ -94,8 +94,8 @@ export function RoomForm({ mode }: Props) {
       <div className="flex flex-1 items-center justify-center py-12">
         <div className="w-full max-w-sm">
           <div className="mb-6">
-            <h1 className="text-2xl font-semibold tracking-tight text-blue-950">{text.title}</h1>
-            <p className="mt-1 text-sm text-slate-600">{text.subtitle}</p>
+            <h1 className="text-2xl font-semibold tracking-tight text-zinc-50">{text.title}</h1>
+            <p className="mt-1 text-sm text-zinc-400">{text.subtitle}</p>
           </div>
 
           <form
@@ -103,10 +103,10 @@ export function RoomForm({ mode }: Props) {
               e.preventDefault();
               void submit();
             }}
-            className="space-y-5 rounded-2xl border border-blue-200 bg-blue-50 p-6"
+            className="space-y-5 rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6"
           >
             <label className="block space-y-1.5">
-              <span className="text-xs font-medium text-blue-800">Your name</span>
+              <span className="text-xs font-medium text-zinc-300">Your name</span>
               <input
                 autoFocus
                 value={displayName}
@@ -122,7 +122,7 @@ export function RoomForm({ mode }: Props) {
 
             {mode === "create" ? (
               <label className="block space-y-1.5">
-                <span className="text-xs font-medium text-blue-800">Room name (optional)</span>
+                <span className="text-xs font-medium text-zinc-300">Room name (optional)</span>
                 <input
                   value={roomName}
                   onChange={(e) => setRoomName(e.target.value)}
@@ -133,7 +133,7 @@ export function RoomForm({ mode }: Props) {
               </label>
             ) : (
               <label className="block space-y-1.5">
-                <span className="text-xs font-medium text-blue-800">Room link or id</span>
+                <span className="text-xs font-medium text-zinc-300">Room link or id</span>
                 <input
                   value={code}
                   onChange={(e) => {
@@ -146,23 +146,23 @@ export function RoomForm({ mode }: Props) {
               </label>
             )}
 
-            {error && <p className="text-xs text-red-600">{error}</p>}
+            {error && <p className="text-xs text-red-400">{error}</p>}
 
             <button
               type="submit"
               disabled={!canSubmit}
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-blue-700 py-2.5 text-sm font-medium text-white transition hover:bg-blue-800 disabled:opacity-40"
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-violet-600 py-2.5 text-sm font-medium text-white shadow-lg shadow-violet-600/25 transition hover:bg-violet-500 disabled:opacity-40"
             >
               {busy ? "One moment…" : text.cta}
               {!busy && <ArrowRight className="h-4 w-4" />}
             </button>
           </form>
 
-          <p className="mt-6 text-center text-xs text-slate-500">
+          <p className="mt-6 text-center text-xs text-zinc-500">
             {text.switchText}{" "}
             <Link
               href={text.switchHref}
-              className="font-medium text-blue-700 underline-offset-4 hover:underline"
+              className="font-medium text-violet-400 underline-offset-4 hover:underline"
             >
               {text.switchLabel}
             </Link>

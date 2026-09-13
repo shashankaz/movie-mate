@@ -5,8 +5,8 @@ export const site = {
     "Create a room, share the link and watch YouTube, Vimeo or any video together in perfect sync. Host-controlled playback, live chat, no sign-up.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   locale: "en_US",
-  themeColor: "#1d4ed8",
-  backgroundColor: "#ffffff",
+  themeColor: "#7c3aed",
+  backgroundColor: "#09090b",
   keywords: [
     "watch party",
     "watch together",

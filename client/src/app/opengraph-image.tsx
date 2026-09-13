@@ -16,8 +16,8 @@ export default function OpenGraphImage() {
         justifyContent: "space-between",
         padding: 80,
         background:
-          "radial-gradient(ellipse at top left, rgba(59,130,246,0.22), transparent 55%), #ffffff",
-        color: "#172554",
+          "radial-gradient(ellipse at top left, rgba(139,92,246,0.35), transparent 55%), radial-gradient(ellipse at bottom right, rgba(139,92,246,0.10), transparent 55%), #09090b",
+        color: "#f5f3ff",
         fontFamily: "sans-serif",
       }}
     >
@@ -27,7 +27,7 @@ export default function OpenGraphImage() {
             width: 64,
             height: 64,
             borderRadius: 16,
-            background: "#1d4ed8",
+            background: "linear-gradient(135deg, #8b5cf6, #c026d3)",
             color: "#ffffff",
             display: "flex",
             alignItems: "center",
@@ -53,9 +53,9 @@ export default function OpenGraphImage() {
           }}
         >
           <div>Watch together,</div>
-          <div style={{ color: "#1d4ed8" }}>perfectly in sync.</div>
+          <div style={{ color: "#a78bfa" }}>perfectly in sync.</div>
         </div>
-        <div style={{ fontSize: 30, color: "#475569", maxWidth: 900 }}>
+        <div style={{ fontSize: 30, color: "#a1a1aa", maxWidth: 900 }}>
           Create a room, share the link, paste a video. Host-controlled playback and live chat.
         </div>
       </div>

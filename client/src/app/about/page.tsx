@@ -30,13 +30,13 @@ export default function AboutPage() {
         <nav className="flex items-center gap-2">
           <Link
             href="/join"
-            className="rounded-lg px-3 py-2 text-sm text-blue-700 transition hover:text-blue-950"
+            className="rounded-lg px-3 py-2 text-sm text-zinc-400 transition hover:text-white"
           >
             Join a room
           </Link>
           <Link
             href="/create"
-            className="rounded-lg bg-blue-700 px-3.5 py-2 text-sm font-medium text-white transition hover:bg-blue-800"
+            className="rounded-lg bg-violet-600 px-3.5 py-2 text-sm font-medium text-white shadow-lg shadow-violet-600/25 transition hover:bg-violet-500"
           >
             Create a room
           </Link>
@@ -44,12 +44,12 @@ export default function AboutPage() {
       </header>
 
       <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-16">
-        <p className="text-xs font-medium tracking-wide text-blue-600 uppercase">About</p>
-        <h1 className="mt-2 text-3xl font-semibold tracking-tight text-blue-950 sm:text-4xl">
+        <p className="text-xs font-medium tracking-wide text-violet-400 uppercase">About</p>
+        <h1 className="mt-2 text-3xl font-semibold tracking-tight text-zinc-50 sm:text-4xl">
           Movie night, without the “are you at 41:12 yet?”
         </h1>
 
-        <div className="mt-8 space-y-5 text-base leading-relaxed text-slate-600">
+        <div className="mt-8 space-y-5 text-base leading-relaxed text-zinc-400">
           <p>
             {site.name} started from a simple frustration: watching something with friends who
             aren&apos;t in the room usually means counting down on a call and hoping everyone hits
@@ -68,16 +68,16 @@ export default function AboutPage() {
 
         <dl className="mt-12 grid gap-4 sm:grid-cols-2">
           {facts.map((f) => (
-            <div key={f.label} className="rounded-2xl border border-blue-200 bg-blue-50 p-5">
-              <dt className="text-xs font-medium text-slate-500">{f.label}</dt>
-              <dd className="mt-1 text-sm font-semibold text-blue-950">{f.value}</dd>
+            <div key={f.label} className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-5">
+              <dt className="text-xs font-medium text-zinc-500">{f.label}</dt>
+              <dd className="mt-1 text-sm font-semibold text-zinc-50">{f.value}</dd>
             </div>
           ))}
         </dl>
 
         <section className="mt-12">
-          <h2 className="text-lg font-semibold tracking-tight text-blue-950">How sync works</h2>
-          <p className="mt-3 text-sm leading-relaxed text-slate-600">
+          <h2 className="text-lg font-semibold tracking-tight text-zinc-50">How sync works</h2>
+          <p className="mt-3 text-sm leading-relaxed text-zinc-400">
             The host&apos;s player reports its position to the server whenever it plays, pauses or
             seeks, and every couple of seconds while playing. Each viewer compares that against its
             own player and nudges itself back into place if it drifts more than a second. No special
@@ -88,22 +88,22 @@ export default function AboutPage() {
         <div className="mt-12 flex flex-col gap-3 sm:flex-row">
           <Link
             href="/create"
-            className="flex items-center justify-center gap-2 rounded-xl bg-blue-700 px-5 py-3 text-sm font-medium text-white transition hover:bg-blue-800"
+            className="flex items-center justify-center gap-2 rounded-xl bg-violet-600 px-5 py-3 text-sm font-medium text-white shadow-lg shadow-violet-600/25 transition hover:bg-violet-500"
           >
             Create a room
             <ArrowRight className="h-4 w-4" />
           </Link>
           <Link
             href="/"
-            className="flex items-center justify-center rounded-xl border border-blue-200 px-5 py-3 text-sm font-medium text-blue-900 transition hover:bg-blue-50"
+            className="flex items-center justify-center rounded-xl border border-zinc-700 px-5 py-3 text-sm font-medium text-zinc-200 transition hover:bg-zinc-800"
           >
             Back to home
           </Link>
         </div>
       </main>
 
-      <footer className="border-t border-blue-100">
-        <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-3 px-6 py-6 text-xs text-slate-500 sm:flex-row">
+      <footer className="border-t border-zinc-800">
+        <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-3 px-6 py-6 text-xs text-zinc-500 sm:flex-row">
           <Logo withText={false} />
           <p>Movie Mate · Watch together, perfectly in sync.</p>
         </div>
