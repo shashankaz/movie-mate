@@ -2,11 +2,13 @@
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import { useState } from "react";
 import { Film } from "lucide-react";
 import { Chat } from "@/components/chat";
 import { MediaPanel } from "@/components/media-panel";
 import { Participants } from "@/components/participants";
 import { RoomHeader } from "@/components/room-header";
+import { ShareDialog } from "@/components/share-dialog";
 import { VideoUrlForm } from "@/components/video-url-form";
 import { useMediaCall } from "@/hooks/use-media-call";
 import { useRoom } from "@/hooks/use-room";
@@ -28,6 +30,13 @@ export function RoomView({ roomId, name, hostKey }: Props) {
     onSignal: room.actions.signal,
     onStateChange: room.actions.setMediaState,
   });
+  const [shareOpen, setShareOpen] = useState(false);
+  const [autoOpened, setAutoOpened] = useState(false);
+
+  if (room.status === "joined" && room.isHost && !autoOpened) {
+    setAutoOpened(true);
+    setShareOpen(true);
+  }
 
   if (room.status === "error") {
     return (
@@ -57,6 +66,14 @@ export function RoomView({ roomId, name, hostKey }: Props) {
         isHost={room.isHost}
         connected={room.connected}
         participantCount={room.participants.length}
+        onShare={() => setShareOpen(true)}
+      />
+
+      <ShareDialog
+        open={shareOpen}
+        roomId={roomId}
+        roomName={room.roomName}
+        onClose={() => setShareOpen(false)}
       />
 
       <div className="flex flex-1 flex-col gap-4 p-4 sm:p-6 lg:flex-row">

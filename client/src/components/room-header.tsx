@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { Check, Link2, Users } from "lucide-react";
+import { Share2, Users } from "lucide-react";
 import { Logo } from "@/components/logo";
 
 interface Props {
@@ -10,19 +9,17 @@ interface Props {
   isHost: boolean;
   connected: boolean;
   participantCount: number;
+  onShare: () => void;
 }
 
-export function RoomHeader({ roomId, roomName, isHost, connected, participantCount }: Props) {
-  const [copied, setCopied] = useState(false);
-
-  const copyLink = async () => {
-    try {
-      await navigator.clipboard.writeText(window.location.href);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1800);
-    } catch {}
-  };
-
+export function RoomHeader({
+  roomId,
+  roomName,
+  isHost,
+  connected,
+  participantCount,
+  onShare,
+}: Props) {
   return (
     <header className="flex flex-wrap items-center gap-3 border-b border-zinc-800 px-4 py-3 sm:px-6">
       <Logo withText={false} />
@@ -49,11 +46,11 @@ export function RoomHeader({ roomId, roomName, isHost, connected, participantCou
         </span>
         <button
           type="button"
-          onClick={copyLink}
+          onClick={onShare}
           className="flex items-center gap-1.5 rounded-lg bg-violet-600 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-violet-500"
         >
-          {copied ? <Check className="h-3.5 w-3.5" /> : <Link2 className="h-3.5 w-3.5" />}
-          {copied ? "Copied" : "Copy link"}
+          <Share2 className="h-3.5 w-3.5" />
+          Share
         </button>
       </div>
     </header>
