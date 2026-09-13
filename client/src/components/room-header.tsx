@@ -1,14 +1,19 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { Share2, Users } from "lucide-react";
 import { Logo } from "@/components/logo";
+import { Participants } from "@/components/participants";
+import type { Participant } from "@/lib/types";
 
 interface Props {
   roomId: string;
   roomName: string;
   isHost: boolean;
   connected: boolean;
-  participantCount: number;
+  participants: Participant[];
+  hostId: string | null;
+  selfId: string | null;
   onShare: () => void;
 }
 
@@ -17,11 +22,36 @@ export function RoomHeader({
   roomName,
   isHost,
   connected,
-  participantCount,
+  participants,
+  hostId,
+  selfId,
   onShare,
 }: Props) {
+  const [peopleOpen, setPeopleOpen] = useState(false);
+  const popoverRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!peopleOpen) return;
+
+    const onPointerDown = (e: PointerEvent) => {
+      if (!popoverRef.current?.contains(e.target as Node)) setPeopleOpen(false);
+    };
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setPeopleOpen(false);
+    };
+
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [peopleOpen]);
+
   return (
-    <header className="flex flex-wrap items-center gap-3 border-b border-zinc-800 px-4 py-3 sm:px-6">
+    <header className="flex shrink-0 flex-wrap items-center gap-3 border-b border-zinc-800 px-4 py-3 sm:px-6">
       <Logo withText={false} />
 
       <div className="min-w-0">
@@ -40,10 +70,36 @@ export function RoomHeader({
             Host
           </span>
         )}
-        <span className="flex items-center gap-1.5 rounded-full border border-zinc-700 px-2.5 py-1 text-xs text-zinc-300">
-          <Users className="h-3.5 w-3.5" />
-          {participantCount}
-        </span>
+
+        <div ref={popoverRef} className="relative">
+          <button
+            type="button"
+            onClick={() => setPeopleOpen((o) => !o)}
+            aria-expanded={peopleOpen}
+            aria-haspopup="dialog"
+            aria-label={`${participants.length} watching`}
+            title="Watching"
+            className={`flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs transition ${
+              peopleOpen
+                ? "border-violet-500/50 bg-violet-500/15 text-violet-200"
+                : "border-zinc-700 text-zinc-300 hover:bg-zinc-800"
+            }`}
+          >
+            <Users className="h-3.5 w-3.5" />
+            {participants.length}
+          </button>
+
+          {peopleOpen && (
+            <div
+              role="dialog"
+              aria-label="Watching"
+              className="absolute top-full right-0 z-30 mt-2 w-72 animate-dialog-in rounded-2xl border border-zinc-800 bg-zinc-900 shadow-2xl shadow-black/60"
+            >
+              <Participants participants={participants} hostId={hostId} selfId={selfId} />
+            </div>
+          )}
+        </div>
+
         <button
           type="button"
           onClick={onShare}

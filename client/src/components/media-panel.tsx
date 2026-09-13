@@ -37,43 +37,52 @@ export function MediaPanel({
   const liveCount = sharingPeers.length + (selfSharing ? 1 : 0);
 
   const toggleClass = (on: boolean) =>
-    `flex h-9 w-9 items-center justify-center rounded-full transition disabled:opacity-50 ${
+    `flex h-10 w-10 items-center justify-center rounded-full transition disabled:opacity-50 ${
       on
         ? "bg-violet-600 text-white hover:bg-violet-500"
         : "border border-zinc-700 bg-white/5 text-zinc-300 hover:bg-zinc-800"
     }`;
 
   return (
-    <div className="shrink-0 border-b border-zinc-800 px-4 py-3">
-      <div className="mb-2 flex items-center justify-between text-xs text-zinc-500">
-        <span className="font-medium tracking-wide uppercase">Camera &amp; mic</span>
-        <span>{liveCount > 0 ? `${liveCount} live` : "Off"}</span>
+    <div className="flex min-h-0 flex-1 flex-col">
+      <div className="min-h-0 flex-1 overflow-y-auto p-3">
+        {liveCount > 0 ? (
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-1">
+            {selfSharing && (
+              <MediaTile
+                name={selfName}
+                stream={localStream}
+                audioOn={state.audio}
+                videoOn={state.video}
+                isSelf
+              />
+            )}
+            {sharingPeers.map((p) => (
+              <MediaTile
+                key={p.id}
+                name={p.name}
+                stream={remoteStreams[p.id] ?? null}
+                audioOn={p.media.audio}
+                videoOn={p.media.video}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="flex h-full flex-col items-center justify-center gap-2 py-8 text-center">
+            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-violet-500/10 text-violet-400 ring-1 ring-violet-500/20">
+              <Video className="h-5 w-5" />
+            </span>
+            <p className="text-sm text-zinc-300">No one is on camera yet</p>
+            <p className="text-xs text-zinc-500">
+              {busy ? "Starting…" : "Turn on your camera or mic to appear here."}
+            </p>
+          </div>
+        )}
       </div>
 
-      {liveCount > 0 && (
-        <div className="mb-3 grid grid-cols-2 gap-2">
-          {selfSharing && (
-            <MediaTile
-              name={selfName}
-              stream={localStream}
-              audioOn={state.audio}
-              videoOn={state.video}
-              isSelf
-            />
-          )}
-          {sharingPeers.map((p) => (
-            <MediaTile
-              key={p.id}
-              name={p.name}
-              stream={remoteStreams[p.id] ?? null}
-              audioOn={p.media.audio}
-              videoOn={p.media.video}
-            />
-          ))}
-        </div>
-      )}
+      {error && <p className="px-4 pb-1 text-xs text-red-400">{error}</p>}
 
-      <div className="flex items-center gap-2">
+      <div className="flex shrink-0 items-center justify-center gap-3 border-t border-zinc-800 p-3">
         <button
           type="button"
           onClick={() => onToggle("audio")}
@@ -98,20 +107,14 @@ export function MediaPanel({
           <button
             type="button"
             onClick={onStop}
-            className="ml-auto flex items-center gap-1.5 rounded-full bg-red-600 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-red-700"
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-red-600 text-white transition hover:bg-red-700"
+            aria-label="Stop sharing"
+            title="Stop sharing"
           >
-            <PhoneOff className="h-3.5 w-3.5" />
-            Stop
+            <PhoneOff className="h-4 w-4" />
           </button>
         )}
-        {!selfSharing && (
-          <span className="ml-1 text-xs text-zinc-500">
-            {busy ? "Starting…" : "Share your camera or mic"}
-          </span>
-        )}
       </div>
-
-      {error && <p className="mt-2 text-xs text-red-400">{error}</p>}
     </div>
   );
 }
