@@ -27,7 +27,7 @@ export function Participants({ participants, hostId, selfId }: Props) {
   const sorted = [...participants].sort((a, b) => a.joinedAt - b.joinedAt);
 
   return (
-    <div className="border-b border-zinc-800 px-4 py-3">
+    <div className="shrink-0 border-b border-zinc-800 px-4 py-3">
       <div className="mb-2 flex items-center justify-between text-xs text-zinc-500">
         <span className="font-medium tracking-wide uppercase">Watching</span>
         <span>{participants.length}</span>

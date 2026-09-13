@@ -105,8 +105,8 @@ export default function VideoPlayer({
   };
 
   return (
-    <div className="flex flex-col overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/50">
-      <div className="relative aspect-video w-full bg-black">
+    <div className="flex flex-col overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/50 lg:min-h-0">
+      <div className="relative aspect-video w-full bg-black lg:min-h-0">
         <ReactPlayer
           ref={playerRef}
           src={src}
@@ -164,7 +164,7 @@ export default function VideoPlayer({
         )}
       </div>
 
-      <div className="flex items-center gap-3 border-t border-zinc-800 px-3 py-2 text-sm text-zinc-200">
+      <div className="flex shrink-0 items-center gap-3 border-t border-zinc-800 px-3 py-2 text-sm text-zinc-200">
         {isHost ? (
           <button
             type="button"

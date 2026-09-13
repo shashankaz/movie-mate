@@ -59,7 +59,7 @@ export function RoomView({ roomId, name, hostKey }: Props) {
   }
 
   return (
-    <div className="flex flex-1 flex-col">
+    <div className="flex h-dvh flex-col overflow-hidden">
       <RoomHeader
         roomId={roomId}
         roomName={room.roomName}
@@ -76,8 +76,8 @@ export function RoomView({ roomId, name, hostKey }: Props) {
         onClose={() => setShareOpen(false)}
       />
 
-      <div className="flex flex-1 flex-col gap-4 p-4 sm:p-6 lg:flex-row">
-        <section className="flex min-w-0 flex-1 flex-col gap-4">
+      <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto p-4 sm:p-6 lg:flex-row lg:overflow-hidden">
+        <section className="flex min-w-0 shrink-0 flex-col gap-4 lg:min-h-0 lg:flex-1">
           {room.isHost && (
             <VideoUrlForm currentUrl={room.videoUrl} onSubmit={room.actions.setVideo} />
           )}
@@ -94,7 +94,7 @@ export function RoomView({ roomId, name, hostKey }: Props) {
               onTick={room.actions.tick}
             />
           ) : (
-            <div className="flex aspect-video w-full flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-zinc-700 bg-zinc-900/60 text-center">
+            <div className="flex aspect-video w-full flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-zinc-700 bg-zinc-900/60 text-center lg:min-h-0">
               <span className="flex h-12 w-12 items-center justify-center rounded-full bg-violet-500/10 text-violet-400 ring-1 ring-violet-500/20">
                 <Film className="h-5 w-5" />
               </span>
@@ -113,7 +113,7 @@ export function RoomView({ roomId, name, hostKey }: Props) {
           )}
         </section>
 
-        <aside className="flex h-160 flex-col overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/50 lg:h-auto lg:w-80 lg:shrink-0">
+        <aside className="flex min-h-80 flex-1 flex-col overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/50 lg:min-h-0 lg:w-80 lg:flex-none">
           <Participants
             participants={room.participants}
             hostId={room.hostId}

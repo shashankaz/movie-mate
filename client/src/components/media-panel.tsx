@@ -44,7 +44,7 @@ export function MediaPanel({
     }`;
 
   return (
-    <div className="border-b border-zinc-800 px-4 py-3">
+    <div className="shrink-0 border-b border-zinc-800 px-4 py-3">
       <div className="mb-2 flex items-center justify-between text-xs text-zinc-500">
         <span className="font-medium tracking-wide uppercase">Camera &amp; mic</span>
         <span>{liveCount > 0 ? `${liveCount} live` : "Off"}</span>

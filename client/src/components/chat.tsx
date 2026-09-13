@@ -75,7 +75,7 @@ export function Chat({ messages, selfId, disabled, onSend }: Props) {
           e.preventDefault();
           void submit();
         }}
-        className="flex items-center gap-2 border-t border-zinc-800 p-3"
+        className="flex shrink-0 items-center gap-2 border-t border-zinc-800 p-3"
       >
         <input
           value={text}
