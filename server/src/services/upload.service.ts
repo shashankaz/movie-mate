@@ -14,6 +14,7 @@ const ACCEPTED_TYPES: Record<string, string> = {
   "video/quicktime": ".mov",
   "video/x-m4v": ".m4v",
   "video/x-matroska": ".mkv",
+  "video/matroska": ".mkv",
   "video/ogg": ".ogv",
   "video/mpeg": ".mpeg",
   "video/x-msvideo": ".avi",

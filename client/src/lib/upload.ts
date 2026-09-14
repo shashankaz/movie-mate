@@ -11,9 +11,10 @@ const TYPE_BY_EXTENSION: Record<string, string> = {
 };
 
 export const detectVideoType = (file: File): string | null => {
-  if (file.type.startsWith("video/")) return file.type;
   const ext = file.name.split(".").pop()?.toLowerCase();
-  return ext ? (TYPE_BY_EXTENSION[ext] ?? null) : null;
+  const fromExtension = ext ? TYPE_BY_EXTENSION[ext] : undefined;
+  if (fromExtension) return fromExtension;
+  return file.type.startsWith("video/") ? file.type : null;
 };
 
 export const formatBytes = (bytes: number): string => {

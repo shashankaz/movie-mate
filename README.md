@@ -56,7 +56,7 @@ Flow: `POST /api/uploads/presign { filename, contentType, size }` → `{ uploadU
    R2_SECRET_ACCESS_KEY=…
    R2_BUCKET=movie-mate
    R2_PUBLIC_BASE_URL=https://pub-xxxxxxxx.r2.dev   # or https://cdn.example.com
-   UPLOAD_MAX_BYTES=2147483648                      # optional, default 2 GB
+   UPLOAD_MAX_BYTES=5368709120                      # optional, default 5 GB
    ```
 
 5. **Set the bucket's CORS rule** — browser uploads fail without it. In the dashboard go to *Bucket → Settings → CORS Policy* and paste (`AllowedHeaders` must list `content-type` explicitly — `*` does not work on R2):

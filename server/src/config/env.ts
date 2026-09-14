@@ -26,7 +26,7 @@ const envSchema = z
     R2_SECRET_ACCESS_KEY: optionalString,
     R2_BUCKET: optionalString,
     R2_PUBLIC_BASE_URL: z.preprocess(blankToUndefined, z.url({ protocol: /^https?$/ }).optional()),
-    UPLOAD_MAX_BYTES: positiveInt(2 * 1024 * 1024 * 1024),
+    UPLOAD_MAX_BYTES: positiveInt(5 * 1024 * 1024 * 1024),
   })
   .superRefine((data, ctx) => {
     const r2 = {
